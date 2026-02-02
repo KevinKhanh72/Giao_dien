@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Supply Chain Blockchain</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+
+  <h1>📦 HỆ THỐNG THEO DÕI CHUỖI CUNG ỨNG</h1>
+
+  <button onclick="connectWallet()">🔗 Kết nối MetaMask</button>
+  <p id="account">Chưa kết nối</p>
+
+  <div class="container">
+    <!-- BÊN TRÁI: Nghiệp vụ -->
+    <div class="left-section">
+      <h2>📋 QUẢN LÝ CHUỖI CUNG ỨNG</h2>
+
+      <h3>⚙️ Cài đặt Contract</h3>
+      <input id="leftContractAddress" placeholder="Nhập địa chỉ Smart Contract (0x...)">
+      <button onclick="setLeftContractAddress()">Đặt Contract</button>
+      <div id="leftContractMsg" style="margin-top:8px;color:blue;font-weight:600"></div>
+
+      <hr>
+
+      <h3>1️⃣ Tạo sản phẩm (Manufacturer)</h3>
+      <input id="productName" placeholder="Tên sản phẩm">
+      <input id="deliveryList" placeholder="Danh sách giao hàng (cách nhau bằng dấu ,)">
+      <input id="retailerAddress" placeholder="Địa chỉ cửa hàng">
+      <button onclick="createProduct()">Tạo sản phẩm</button>
+      <div id="createMsg" style="margin-top:8px;color:green;font-weight:600"></div>
+      <div id="createdId" style="margin-top:8px;color:green;font-weight:700"></div>
+
+      <hr>
+
+      <h3>2️⃣ Delivery ship hàng</h3>
+      <input id="shipId" placeholder="ID sản phẩm">
+      <button onclick="shipProduct()">Ship</button>
+      <div id="shipMsg" style="margin-top:8px;color:green;font-weight:600"></div>
+
+      <hr>
+
+      <h3>3️⃣ Retailer nhận hàng</h3>
+      <input id="receiveId" placeholder="ID sản phẩm">
+      <button onclick="receiveProduct()">Nhận hàng</button>
+      <div id="receiveMsg" style="margin-top:8px;color:green;font-weight:600"></div>
+    </div>
+
+    <!-- BÊN PHẢI: Xem thông tin & lịch sử -->
+    <div class="right-section">
+      <h2>🔍 XEM THÔNG TIN & LỊCH SỬ</h2>
+
+      <h3>⚙️ Cài đặt Contract</h3>
+      <input id="contractAddress" placeholder="Nhập địa chỉ Smart Contract (0x...)">
+      <button onclick="setContractAddress()">Đặt Contract</button>
+      <div id="contractMsg" style="margin-top:8px;color:blue;font-weight:600"></div>
+
+      <hr>
+
+      <h3>🔎 Tìm sản phẩm</h3>
+      <input id="viewId" placeholder="Nhập ID sản phẩm">
+      <button onclick="viewProduct()">Xem</button>
+      <div id="viewMsg" style="margin-top:8px;color:crimson;font-weight:600"></div>
+
+      <pre id="result"></pre>
+    </div>
+  </div>
+
+  <script>
+    // Kiểm tra nhanh xem ethers có load được không, nếu không sẽ thông báo rõ ràng
+    if (typeof window.ethers === "undefined") {
+      console.warn("Ethers.js chưa được tải (window.ethers undefined). Nếu trang bị chặn tài nguyên, kiểm tra kết nối mạng hoặc CSP.");
+      // Hiển thị cảnh báo nhỏ trên UI khi người dùng cố kết nối
+      window.addEventListener('DOMContentLoaded', () => {
+        const acc = document.getElementById('account');
+        if (acc && acc.innerText === 'Chưa kết nối') {
+          acc.innerText = 'Chưa kết nối — Ethers.js chưa sẵn sàng';
+        }
+      });
+    }
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
