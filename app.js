@@ -2,6 +2,7 @@ let provider;
 let signer;
 let contract;
 let lastCreatedId = null;
+let currentContractAddress = "";
 
 
 const ABI = [
